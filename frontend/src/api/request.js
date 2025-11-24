@@ -1,7 +1,10 @@
 import axios from 'axios'
 
+// 使用环境变量配置 API 地址
+// 开发环境：.env.development 中的 VITE_API_BASE_URL
+// 生产环境：.env.production 中的 VITE_API_BASE_URL 或 Netlify 环境变量
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:5000',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:5000',
   timeout: 5000
 })
 

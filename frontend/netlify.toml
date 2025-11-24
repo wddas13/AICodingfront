@@ -1,0 +1,30 @@
+# Netlify 构建配置
+[build]
+  # 构建命令
+  command = "npm run build"
+  # 发布目录（Vite 默认输出到 dist）
+  publish = "dist"
+
+# SPA 路由重定向规则 - 解决刷新页面 404 问题
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  # 不重定向静态资源
+  conditions = {Role = ["*"]}
+
+# 可选：自定义 headers（增强安全性）
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
+    Permissions-Policy = "interest-cohort=()"
+
+# 静态资源缓存
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
